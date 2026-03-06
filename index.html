@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Notes — Salvo Localmente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #ffffff;
@@ -29,11 +29,7 @@
             --header-height: 56px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
@@ -54,7 +50,6 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--bg-secondary);
@@ -94,6 +89,23 @@
             letter-spacing: -0.5px;
         }
 
+        .storage-info {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            background: var(--bg-tertiary);
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .storage-info.saved {
+            color: var(--accent);
+            background: var(--accent-light);
+        }
+
         .new-note-btn {
             width: 100%;
             padding: 10px 16px;
@@ -123,9 +135,7 @@
             border-bottom: 1px solid var(--border-light);
         }
 
-        .search-wrapper {
-            position: relative;
-        }
+        .search-wrapper { position: relative; }
 
         .search-input {
             width: 100%;
@@ -170,9 +180,7 @@
             position: relative;
         }
 
-        .note-item:hover {
-            background: var(--bg-hover);
-        }
+        .note-item:hover { background: var(--bg-hover); }
 
         .note-item.active {
             background: var(--bg-primary);
@@ -245,11 +253,8 @@
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Main Content */
         .main {
             flex: 1;
             display: flex;
@@ -273,17 +278,8 @@
             z-index: 10;
         }
 
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .toolbar-left { display: flex; align-items: center; gap: 16px; }
+        .toolbar-right { display: flex; align-items: center; gap: 6px; }
 
         .menu-btn {
             display: none;
@@ -299,19 +295,14 @@
             color: var(--text-secondary);
         }
 
-        .menu-btn:hover {
-            background: var(--bg-hover);
-        }
+        .menu-btn:hover { background: var(--bg-hover); }
 
         .breadcrumb {
             font-size: 14px;
             color: var(--text-secondary);
         }
 
-        .breadcrumb-current {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
+        .breadcrumb-current { color: var(--text-primary); font-weight: 600; }
 
         .tool-btn {
             padding: 6px 12px;
@@ -340,9 +331,7 @@
             border-color: var(--accent);
         }
 
-        .tool-btn.primary:hover {
-            background: var(--accent-hover);
-        }
+        .tool-btn.primary:hover { background: var(--accent-hover); }
 
         .tool-btn.danger:hover {
             background: #fee2e2;
@@ -357,7 +346,6 @@
             margin: 0 4px;
         }
 
-        /* Editor */
         .editor-container {
             flex: 1;
             overflow-y: auto;
@@ -393,10 +381,7 @@
             min-height: 56px;
         }
 
-        .title-input::placeholder {
-            color: var(--text-tertiary);
-            opacity: 0.6;
-        }
+        .title-input::placeholder { color: var(--text-tertiary); opacity: 0.6; }
 
         .title-hint {
             position: absolute;
@@ -410,9 +395,7 @@
             pointer-events: none;
         }
 
-        .title-input:focus + .title-hint {
-            opacity: 1;
-        }
+        .title-input:focus + .title-hint { opacity: 1; }
 
         .content-editor {
             width: 100%;
@@ -428,12 +411,8 @@
             padding: 0;
         }
 
-        .content-editor::placeholder {
-            color: var(--text-tertiary);
-            opacity: 0.5;
-        }
+        .content-editor::placeholder { color: var(--text-tertiary); opacity: 0.5; }
 
-        /* Empty State */
         .empty-state {
             position: absolute;
             top: 50%;
@@ -490,7 +469,6 @@
             transform: translateY(-1px);
         }
 
-        /* Status Bar */
         .status-bar {
             height: 40px;
             border-top: 1px solid var(--border);
@@ -503,18 +481,10 @@
             background: var(--bg-secondary);
         }
 
-        .status-left {
-            display: flex;
-            gap: 20px;
-        }
+        .status-left { display: flex; gap: 20px; }
 
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .status-item { display: flex; align-items: center; gap: 6px; }
 
-        /* Toast */
         .toast-container {
             position: fixed;
             bottom: 24px;
@@ -541,141 +511,19 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .toast.hide {
-            animation: slideOut 0.2s ease forwards;
-        }
+        .toast.hide { animation: slideOut 0.2s ease forwards; }
 
-        @keyframes slideOut {
-            to {
-                opacity: 0;
-                transform: translateX(10px);
-            }
-        }
+        @keyframes slideOut { to { opacity: 0; transform: translateX(10px); } }
 
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            backdrop-filter: blur(4px);
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
 
-        .modal-overlay.show {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--bg-primary);
-            padding: 24px;
-            border-radius: var(--radius-md);
-            width: 90%;
-            max-width: 400px;
-            box-shadow: var(--shadow-lg);
-            animation: modalIn 0.2s ease;
-        }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 15px;
-            margin-bottom: 20px;
-            transition: all 0.2s;
-        }
-
-        .modal-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-light);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-        }
-
-        .modal-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .modal-btn.secondary {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
-        .modal-btn.secondary:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .modal-btn.primary {
-            background: var(--accent);
-            color: white;
-        }
-
-        .modal-btn.primary:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-tertiary);
-        }
-
-        /* Mobile */
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -686,39 +534,14 @@
                 transform: translateX(-100%);
                 transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .toolbar-right {
-                gap: 4px;
-            }
-
-            .tool-btn {
-                padding: 6px 8px;
-                font-size: 12px;
-            }
-
-            .tool-btn span:not(:first-child) {
-                display: none;
-            }
-
-            .editor-wrapper {
-                padding: 32px 24px 60px;
-            }
-
-            .title-input {
-                font-size: 32px;
-            }
-
-            .content-editor {
-                font-size: 16px;
-            }
+            .sidebar.open { transform: translateX(0); }
+            .menu-btn { display: flex !important; }
+            .toolbar-right { gap: 4px; }
+            .tool-btn { padding: 6px 8px; font-size: 12px; }
+            .tool-btn span:not(:first-child) { display: none; }
+            .editor-wrapper { padding: 32px 24px 60px; }
+            .title-input { font-size: 32px; }
+            .content-editor { font-size: 16px; }
         }
     </style>
 <base target="_blank">
@@ -732,6 +555,13 @@
                     <div class="brand-icon">◉</div>
                     <div class="brand-text">Notes</div>
                 </div>
+
+                <!-- INFO DE ARMAZENAMENTO LOCAL -->
+                <div class="storage-info" id="storageInfo">
+                    <span>💾</span>
+                    <span>Salvo no navegador</span>
+                </div>
+
                 <button class="new-note-btn" onclick="createNewNote()">
                     <span>+</span>
                     <span>Nova Nota</span>
@@ -750,7 +580,7 @@
             <div class="sidebar-footer">
                 <span id="notesCount">0 notas</span>
                 <div class="auto-save-indicator" id="autoSaveIndicator">
-                    <span>Tudo salvo</span>
+                    <span>💾 localStorage</span>
                 </div>
             </div>
         </aside>
@@ -767,34 +597,33 @@
                     </div>
                 </div>
                 <div class="toolbar-right">
-                    <!-- Botões de edição -->
-                    <button class="tool-btn" onclick="selectAllContent()" title="Selecionar tudo (Ctrl+A)">
+                    <button class="tool-btn" onclick="selectAllContent()" title="Selecionar tudo">
                         <span>☐</span>
                         <span>Selecionar</span>
                     </button>
-                    <button class="tool-btn" onclick="copyContent()" title="Copiar (Ctrl+C)">
+                    <button class="tool-btn" onclick="copyContent()" title="Copiar">
                         <span>📋</span>
                         <span>Copiar</span>
                     </button>
-                    <button class="tool-btn" onclick="pasteContent()" title="Colar (Ctrl+V)">
+                    <button class="tool-btn" onclick="pasteContent()" title="Colar">
                         <span>📌</span>
                         <span>Colar</span>
                     </button>
 
                     <div class="tool-separator"></div>
 
-                    <button class="tool-btn" onclick="downloadNote()" title="Exportar como TXT">
+                    <button class="tool-btn" onclick="downloadNote()" title="Exportar">
                         <span>⬇️</span>
                         <span>Exportar</span>
                     </button>
-                    <button class="tool-btn" onclick="duplicateNote()" title="Duplicar nota">
+                    <button class="tool-btn" onclick="duplicateNote()" title="Duplicar">
                         <span>📄</span>
                         <span>Duplicar</span>
                     </button>
 
                     <div class="tool-separator"></div>
 
-                    <button class="tool-btn danger" onclick="deleteNote()" title="Excluir nota">
+                    <button class="tool-btn danger" onclick="deleteNote()" title="Excluir">
                         <span>🗑️</span>
                     </button>
                 </div>
@@ -804,25 +633,21 @@
                 <div class="empty-state" id="emptyState">
                     <div class="empty-icon">◉</div>
                     <div class="empty-title">Suas notas organizadas</div>
-                    <div class="empty-subtitle">Crie uma nova nota para começar a escrever. Tudo é salvo automaticamente.</div>
+                    <div class="empty-subtitle">Crie uma nova nota para começar. Tudo é salvo automaticamente no navegador.</div>
                     <button class="empty-action" onclick="createNewNote()">Criar Nova Nota</button>
                 </div>
 
                 <div class="editor-wrapper" id="editorWrapper" style="display: none;">
                     <div class="title-input-wrapper">
-                        <textarea 
-                            class="title-input" 
-                            id="titleInput" 
-                            placeholder="Título da nota"
-                            rows="1"
-                        ></textarea>
+                        <textarea class="title-input" id="titleInput" placeholder="Título da nota" rows="1"></textarea>
                         <span class="title-hint">Enter para começar</span>
                     </div>
-                    <textarea 
-                        class="content-editor" 
-                        id="contentInput" 
-                        placeholder="Comece a escrever..."
-                    ></textarea>
+                    <textarea class="content-editor" id="contentInput" placeholder="Comece a escrever...
+
+💡 Dicas:
+• Suas notas são salvas automaticamente no navegador (localStorage)
+• Você pode fechar o navegador que as notas permanecem aqui
+• Use os botões acima para copiar, colar e selecionar"></textarea>
                 </div>
             </div>
 
@@ -843,7 +668,7 @@
                 </div>
                 <div class="status-item" id="lastSaved">
                     <span>💾</span>
-                    <span>Pronto</span>
+                    <span>Salvo localmente</span>
                 </div>
             </div>
         </main>
@@ -851,25 +676,22 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <div class="modal-title" id="modalTitle">Título</div>
-            <input type="text" class="modal-input" id="modalInput" placeholder="Digite aqui...">
-            <div class="modal-actions">
-                <button class="modal-btn secondary" onclick="closeModal()">Cancelar</button>
-                <button class="modal-btn primary" onclick="confirmModal()">Confirmar</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // State
-        let notes = JSON.parse(localStorage.getItem('notes-app-v2')) || [];
+        // ╔════════════════════════════════════════════════════════════╗
+        // ║  SISTEMA DE ARMAZENAMENTO LOCAL (localStorage)             ║
+        // ║  • Todas as notas são salvas no navegador                  ║
+        // ║  • Persiste mesmo após fechar o navegador                  ║
+        // ║  • Não precisa de internet                                 ║
+        // ╚════════════════════════════════════════════════════════════╝
+
+        const STORAGE_KEY = 'notes-app-data-v1'; // Chave do localStorage
+
+        let notes = [];
         let currentNoteId = null;
         let saveTimeout = null;
         let isSaving = false;
 
-        // Elements
+        // Elementos
         const sidebar = document.getElementById('sidebar');
         const notesList = document.getElementById('notesList');
         const titleInput = document.getElementById('titleInput');
@@ -878,17 +700,79 @@
         const editorWrapper = document.getElementById('editorWrapper');
         const breadcrumbTitle = document.getElementById('breadcrumbTitle');
         const autoSaveIndicator = document.getElementById('autoSaveIndicator');
+        const storageInfo = document.getElementById('storageInfo');
         const searchInput = document.getElementById('searchInput');
 
-        // Initialize
+        // ╔════════════════════════════════════════════════════════════╗
+        // ║  INICIALIZAÇÃO - Carrega do localStorage                   ║
+        // ╚════════════════════════════════════════════════════════════╝
         window.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage(); // ← CARREGA DO LOCALSTORAGE
             renderNotesList();
             if (notes.length > 0) {
                 loadNote(notes[0].id);
             }
             updateStats();
             setupEventListeners();
+
+            // Verifica se localStorage está disponível
+            if (!isStorageAvailable()) {
+                showToast('⚠️ Armazenamento local não disponível', 'error');
+            }
         });
+
+        function isStorageAvailable() {
+            try {
+                const test = '__storage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // ╔════════════════════════════════════════════════════════════╗
+        // ║  FUNÇÕES DE ARMAZENAMENTO                                  ║
+        // ╚════════════════════════════════════════════════════════════╝
+
+        // CARREGA do localStorage
+        function loadFromStorage() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    notes = JSON.parse(stored);
+                    console.log(`📂 Carregado ${notes.length} notas do localStorage`);
+                } else {
+                    notes = [];
+                    console.log('📂 Nenhuma nota encontrada, iniciando vazio');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar:', e);
+                notes = [];
+            }
+        }
+
+        // SALVA no localStorage
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+                updateNotesCount();
+
+                // Feedback visual
+                storageInfo.classList.add('saved');
+                setTimeout(() => storageInfo.classList.remove('saved'), 1000);
+
+                console.log(`💾 Salvo ${notes.length} notas no localStorage`);
+            } catch (e) {
+                console.error('Erro ao salvar:', e);
+                showToast('❌ Erro ao salvar', 'error');
+            }
+        }
+
+        // ╔════════════════════════════════════════════════════════════╗
+        // ║  RESTO DO CÓDIGO (funções de edição, etc)                 ║
+        // ╚════════════════════════════════════════════════════════════╝
 
         function setupEventListeners() {
             titleInput.addEventListener('input', () => {
@@ -919,8 +803,6 @@
                     } else if (e.key === 'd') {
                         e.preventDefault();
                         downloadNote();
-                    } else if (e.key === 'a') {
-                        // Deixar o comportamento padrão do Ctrl+A funcionar
                     }
                 }
             });
@@ -929,109 +811,6 @@
         function autoResize(element) {
             element.style.height = 'auto';
             element.style.height = element.scrollHeight + 'px';
-        }
-
-        // NOVAS FUNÇÕES: Copiar, Colar, Selecionar Tudo
-        function selectAllContent() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
-            }
-
-            // Seleciona o conteúdo principal (foca no editor de conteúdo e seleciona tudo)
-            contentInput.focus();
-            contentInput.select();
-            showToast('☐ Tudo selecionado');
-        }
-
-        async function copyContent() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
-            }
-
-            const textToCopy = contentInput.value;
-            if (!textToCopy) {
-                showToast('Nada para copiar', 'error');
-                return;
-            }
-
-            try {
-                await navigator.clipboard.writeText(textToCopy);
-                showToast('📋 Copiado para a área de transferência');
-            } catch (err) {
-                // Fallback
-                contentInput.select();
-                document.execCommand('copy');
-                window.getSelection().removeAllRanges();
-                showToast('📋 Copiado!');
-            }
-        }
-
-        async function pasteContent() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
-            }
-
-            try {
-                const text = await navigator.clipboard.readText();
-                const start = contentInput.selectionStart;
-                const end = contentInput.selectionEnd;
-                const before = contentInput.value.substring(0, start);
-                const after = contentInput.value.substring(end);
-
-                contentInput.value = before + text + after;
-                contentInput.selectionStart = contentInput.selectionEnd = start + text.length;
-
-                queueSave();
-                updateStats();
-                showToast('📌 Colado com sucesso');
-            } catch (err) {
-                showToast('Não foi possível colar. Use Ctrl+V', 'error');
-            }
-        }
-
-        // Resto das funções existentes
-        function createNewNote() {
-            const id = Date.now().toString();
-            const newNote = {
-                id: id,
-                title: '',
-                content: '',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            notes.unshift(newNote);
-            saveToStorage();
-            renderNotesList();
-            loadNote(id);
-            titleInput.focus();
-            showToast('✨ Nova nota criada');
-        }
-
-        function loadNote(id) {
-            const note = notes.find(n => n.id === id);
-            if (!note) return;
-
-            currentNoteId = id;
-            titleInput.value = note.title;
-            contentInput.value = note.content;
-
-            autoResize(titleInput);
-            emptyState.style.display = 'none';
-            editorWrapper.style.display = 'block';
-            updateBreadcrumb();
-            updateStats();
-            renderNotesList();
-
-            setTimeout(() => {
-                if (note.title) {
-                    contentInput.focus();
-                } else {
-                    titleInput.focus();
-                }
-            }, 50);
         }
 
         function queueSave() {
@@ -1054,6 +833,7 @@
                 note.content = contentInput.value;
                 note.updatedAt = new Date().toISOString();
 
+                // Auto-título da primeira linha se vazio
                 if (!note.title && note.content) {
                     const firstLine = note.content.split('\n')[0].trim();
                     if (firstLine) {
@@ -1063,10 +843,11 @@
                     }
                 }
 
+                // Move para topo
                 notes = notes.filter(n => n.id !== currentNoteId);
                 notes.unshift(note);
 
-                saveToStorage();
+                saveToStorage(); // ← SALVA NO LOCALSTORAGE
                 renderNotesList();
                 updateBreadcrumb();
             }
@@ -1075,19 +856,56 @@
             updateSaveIndicator();
         }
 
-        function saveToStorage() {
-            localStorage.setItem('notes-app-v2', JSON.stringify(notes));
-            updateNotesCount();
-        }
-
         function updateSaveIndicator() {
             if (isSaving) {
                 autoSaveIndicator.innerHTML = '<span>Salvando...</span>';
                 autoSaveIndicator.classList.add('saving');
+                document.getElementById('lastSaved').innerHTML = '<span>💾</span><span>Salvando...</span>';
             } else {
-                autoSaveIndicator.innerHTML = '<span>Tudo salvo</span>';
+                autoSaveIndicator.innerHTML = '<span>💾 localStorage</span>';
                 autoSaveIndicator.classList.remove('saving');
+                document.getElementById('lastSaved').innerHTML = '<span>✓</span><span>Salvo localmente</span>';
             }
+        }
+
+        // ... (restante das funções: createNewNote, loadNote, etc - mantidas iguais)
+
+        function createNewNote() {
+            const id = Date.now().toString();
+            const newNote = {
+                id: id,
+                title: '',
+                content: '',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            notes.unshift(newNote);
+            saveToStorage();
+            renderNotesList();
+            loadNote(id);
+            titleInput.focus();
+            showToast('✨ Nova nota criada e salva');
+        }
+
+        function loadNote(id) {
+            const note = notes.find(n => n.id === id);
+            if (!note) return;
+
+            currentNoteId = id;
+            titleInput.value = note.title;
+            contentInput.value = note.content;
+
+            autoResize(titleInput);
+            emptyState.style.display = 'none';
+            editorWrapper.style.display = 'block';
+            updateBreadcrumb();
+            updateStats();
+            renderNotesList();
+
+            setTimeout(() => {
+                if (note.title) contentInput.focus();
+                else titleInput.focus();
+            }, 50);
         }
 
         function updateBreadcrumb() {
@@ -1159,9 +977,7 @@
 
             if (lines.length > 1) {
                 const secondLine = lines[1].trim();
-                if (secondLine) {
-                    return secondLine.length > 60 ? secondLine.substring(0, 60) + '...' : secondLine;
-                }
+                if (secondLine) return secondLine.length > 60 ? secondLine.substring(0, 60) + '...' : secondLine;
             }
 
             return firstLine.length > 60 ? firstLine.substring(0, 60) + '...' : firstLine;
@@ -1172,27 +988,69 @@
             const diff = now - date;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-            if (days === 0) {
-                return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-            } else if (days === 1) {
-                return 'Ontem';
-            } else if (days < 7) {
-                return date.toLocaleDateString('pt-BR', { weekday: 'short' });
-            } else {
-                return date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' });
-            }
+            if (days === 0) return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            else if (days === 1) return 'Ontem';
+            else if (days < 7) return date.toLocaleDateString('pt-BR', { weekday: 'short' });
+            else return date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' });
         }
 
         function countWords(text) {
             return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
         }
 
-        function downloadNote() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
-            }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
+        // Botões de edição
+        function selectAllContent() {
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
+            contentInput.focus();
+            contentInput.select();
+            showToast('☐ Conteúdo selecionado');
+        }
+
+        async function copyContent() {
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
+            const text = contentInput.value;
+            if (!text) { showToast('Nada para copiar', 'error'); return; }
+
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast('📋 Copiado!');
+            } catch (err) {
+                contentInput.select();
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                showToast('📋 Copiado!');
+            }
+        }
+
+        async function pasteContent() {
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
+
+            try {
+                const text = await navigator.clipboard.readText();
+                const start = contentInput.selectionStart;
+                const end = contentInput.selectionEnd;
+                const before = contentInput.value.substring(0, start);
+                const after = contentInput.value.substring(end);
+
+                contentInput.value = before + text + after;
+                contentInput.selectionStart = contentInput.selectionEnd = start + text.length;
+
+                queueSave();
+                updateStats();
+                showToast('📌 Colado!');
+            } catch (err) {
+                showToast('Use Ctrl+V para colar', 'error');
+            }
+        }
+
+        function downloadNote() {
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
             const note = notes.find(n => n.id === currentNoteId);
             const content = `${note.title || 'Sem título'}\n\n${note.content}`;
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
@@ -1204,15 +1062,11 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast('⬇️ Nota exportada');
+            showToast('⬇️ Exportado!');
         }
 
         function duplicateNote() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
-            }
-
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
             const note = notes.find(n => n.id === currentNoteId);
             const newNote = {
                 id: Date.now().toString(),
@@ -1225,41 +1079,31 @@
             saveToStorage();
             renderNotesList();
             loadNote(newNote.id);
-            showToast('📋 Nota duplicada');
+            showToast('📋 Duplicado!');
         }
 
         function deleteNote() {
-            if (!currentNoteId) {
-                showToast('Selecione uma nota primeiro', 'error');
-                return;
+            if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
+            if (!confirm('Tem certeza que deseja excluir esta nota?')) return;
+
+            notes = notes.filter(n => n.id !== currentNoteId);
+            saveToStorage();
+
+            if (notes.length > 0) {
+                loadNote(notes[0].id);
+            } else {
+                currentNoteId = null;
+                emptyState.style.display = 'block';
+                editorWrapper.style.display = 'none';
+                breadcrumbTitle.textContent = 'Selecione uma nota';
             }
 
-            if (confirm('Tem certeza que deseja excluir esta nota?')) {
-                notes = notes.filter(n => n.id !== currentNoteId);
-                saveToStorage();
-
-                if (notes.length > 0) {
-                    loadNote(notes[0].id);
-                } else {
-                    currentNoteId = null;
-                    emptyState.style.display = 'block';
-                    editorWrapper.style.display = 'none';
-                    breadcrumbTitle.textContent = 'Selecione uma nota';
-                }
-
-                renderNotesList();
-                showToast('🗑️ Nota excluída');
-            }
+            renderNotesList();
+            showToast('🗑️ Excluído!');
         }
 
         function updateNotesCount() {
             document.getElementById('notesCount').textContent = `${notes.length} nota${notes.length !== 1 ? 's' : ''}`;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
 
         function showToast(message, type = 'success') {
@@ -1279,16 +1123,7 @@
             sidebar.classList.toggle('open');
         }
 
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && 
-                sidebar.classList.contains('open') &&
-                !sidebar.contains(e.target) &&
-                !e.target.closest('.menu-btn')) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-        // Expose functions
+        // Expor funções
         window.createNewNote = createNewNote;
         window.loadNote = loadNote;
         window.downloadNote = downloadNote;
@@ -1298,7 +1133,6 @@
         window.selectAllContent = selectAllContent;
         window.copyContent = copyContent;
         window.pasteContent = pasteContent;
-        window.closeModal = () => document.getElementById('modal').classList.remove('show');
     </script>
 </body>
 </html>
