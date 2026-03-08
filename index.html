@@ -17,6 +17,9 @@
             --accent: #0071e3;
             --accent-hover: #0077ed;
             --accent-light: rgba(0, 113, 227, 0.08);
+            --danger: #dc2626;
+            --danger-hover: #b91c1c;
+            --danger-light: rgba(220, 38, 38, 0.08);
             --border: rgba(0, 0, 0, 0.06);
             --border-light: rgba(0, 0, 0, 0.04);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -29,7 +32,7 @@
             --header-height: 56px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
@@ -39,6 +42,7 @@
             overflow: hidden;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            user-select: none;
         }
 
         .app {
@@ -178,6 +182,7 @@
             transition: all 0.15s ease;
             border: 1px solid transparent;
             position: relative;
+            touch-action: pan-y;
         }
 
         .note-item:hover { background: var(--bg-hover); }
@@ -186,6 +191,12 @@
             background: var(--bg-primary);
             border-color: var(--border);
             box-shadow: var(--shadow-sm);
+        }
+
+        .note-item.pressing {
+            background: var(--bg-tertiary);
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
         }
 
         .note-item-title {
@@ -379,6 +390,7 @@
             resize: none;
             overflow: hidden;
             min-height: 56px;
+            user-select: text;
         }
 
         .title-input::placeholder { color: var(--text-tertiary); opacity: 0.6; }
@@ -409,6 +421,7 @@
             background: transparent;
             font-family: 'Inter', sans-serif;
             padding: 0;
+            user-select: text;
         }
 
         .content-editor::placeholder { color: var(--text-tertiary); opacity: 0.5; }
@@ -519,6 +532,152 @@
 
         @keyframes slideOut { to { opacity: 0; transform: translateX(10px); } }
 
+        /* Context Menu */
+        .context-menu {
+            position: fixed;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: 6px;
+            min-width: 180px;
+            z-index: 1000;
+            animation: scaleIn 0.15s ease;
+            display: none;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .context-menu-item {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.15s;
+        }
+
+        .context-menu-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .context-menu-item.danger {
+            color: var(--danger);
+        }
+
+        .context-menu-item.danger:hover {
+            background: var(--danger-light);
+        }
+
+        .context-menu-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 6px 0;
+        }
+
+        /* Modal de Confirmação */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--danger-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s;
+        }
+
+        .modal-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .modal-btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-btn-danger:hover {
+            background: var(--danger-hover);
+        }
+
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 4px; }
@@ -542,6 +701,22 @@
             .editor-wrapper { padding: 32px 24px 60px; }
             .title-input { font-size: 32px; }
             .content-editor { font-size: 16px; }
+            
+            .context-menu {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+                animation: slideUp 0.3s ease;
+                max-width: 100%;
+            }
+            
+            @keyframes slideUp {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
         }
     </style>
 <base target="_blank">
@@ -647,6 +822,7 @@
 💡 Dicas:
 • Suas notas são salvas automaticamente no navegador (localStorage)
 • Você pode fechar o navegador que as notas permanecem aqui
+• Pressione e segure uma nota para mais opções
 • Use os botões acima para copiar, colar e selecionar"></textarea>
                 </div>
             </div>
@@ -674,6 +850,36 @@
         </main>
     </div>
 
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" onclick="openNoteFromContext()">
+            <span>📝</span>
+            <span>Abrir nota</span>
+        </div>
+        <div class="context-menu-item" onclick="duplicateNoteFromContext()">
+            <span>📄</span>
+            <span>Duplicar</span>
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item danger" onclick="confirmDeleteFromContext()">
+            <span>🗑️</span>
+            <span>Excluir</span>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal">
+            <div class="modal-icon">🗑️</div>
+            <div class="modal-title">Excluir nota?</div>
+            <div class="modal-text" id="modalText">Esta ação não pode ser desfeita. A nota será permanentemente removida.</div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+                <button class="modal-btn modal-btn-danger" onclick="executeDelete()">Excluir</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
@@ -690,6 +896,10 @@
         let currentNoteId = null;
         let saveTimeout = null;
         let isSaving = false;
+        let contextNoteId = null;
+        let longPressTimer = null;
+        let isLongPress = false;
+        const LONG_PRESS_DURATION = 500; // ms
 
         // Elementos
         const sidebar = document.getElementById('sidebar');
@@ -702,6 +912,9 @@
         const autoSaveIndicator = document.getElementById('autoSaveIndicator');
         const storageInfo = document.getElementById('storageInfo');
         const searchInput = document.getElementById('searchInput');
+        const contextMenu = document.getElementById('contextMenu');
+        const deleteModal = document.getElementById('deleteModal');
+        const modalText = document.getElementById('modalText');
 
         // ╔════════════════════════════════════════════════════════════╗
         // ║  INICIALIZAÇÃO - Carrega do localStorage                   ║
@@ -771,6 +984,180 @@
         }
 
         // ╔════════════════════════════════════════════════════════════╗
+        // ║  LONG PRESS & CONTEXT MENU                                  ║
+        // ╚════════════════════════════════════════════════════════════╝
+
+        function setupLongPress(element, noteId) {
+            const startHandler = (e) => {
+                isLongPress = false;
+                element.classList.add('pressing');
+                
+                longPressTimer = setTimeout(() => {
+                    isLongPress = true;
+                    element.classList.remove('pressing');
+                    showContextMenu(e, noteId);
+                    // Vibração tátil se disponível
+                    if (navigator.vibrate) navigator.vibrate(50);
+                }, LONG_PRESS_DURATION);
+            };
+
+            const endHandler = () => {
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    longPressTimer = null;
+                }
+                element.classList.remove('pressing');
+            };
+
+            const moveHandler = () => {
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    longPressTimer = null;
+                }
+                element.classList.remove('pressing');
+            };
+
+            // Mouse events
+            element.addEventListener('mousedown', startHandler);
+            element.addEventListener('mouseup', endHandler);
+            element.addEventListener('mouseleave', endHandler);
+            element.addEventListener('mousemove', moveHandler);
+
+            // Touch events
+            element.addEventListener('touchstart', (e) => {
+                startHandler(e.touches[0]);
+            }, { passive: true });
+            
+            element.addEventListener('touchend', endHandler);
+            element.addEventListener('touchcancel', endHandler);
+            element.addEventListener('touchmove', moveHandler);
+        }
+
+        function showContextMenu(e, noteId) {
+            contextNoteId = noteId;
+            const note = notes.find(n => n.id === noteId);
+            if (!note) return;
+
+            // Posiciona o menu
+            const x = e.clientX || e.pageX;
+            const y = e.clientY || e.pageY;
+            
+            contextMenu.style.display = 'block';
+            
+            // Ajusta posição para não sair da tela
+            const rect = contextMenu.getBoundingClientRect();
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+            
+            let posX = x;
+            let posY = y;
+            
+            if (x + rect.width > winWidth) posX = x - rect.width;
+            if (y + rect.height > winHeight) posY = y - rect.height;
+            
+            // Mobile: menu desliza de baixo
+            if (window.innerWidth <= 768) {
+                contextMenu.style.left = '0';
+                contextMenu.style.right = '0';
+                contextMenu.style.bottom = '0';
+                contextMenu.style.top = 'auto';
+            } else {
+                contextMenu.style.left = posX + 'px';
+                contextMenu.style.top = posY + 'px';
+                contextMenu.style.right = 'auto';
+                contextMenu.style.bottom = 'auto';
+            }
+        }
+
+        function hideContextMenu() {
+            contextMenu.style.display = 'none';
+            contextNoteId = null;
+        }
+
+        function openNoteFromContext() {
+            if (contextNoteId) {
+                loadNote(contextNoteId);
+                hideContextMenu();
+            }
+        }
+
+        function duplicateNoteFromContext() {
+            if (contextNoteId) {
+                const note = notes.find(n => n.id === contextNoteId);
+                if (note) {
+                    const newNote = {
+                        id: Date.now().toString(),
+                        title: note.title ? `${note.title} (Cópia)` : 'Sem título (Cópia)',
+                        content: note.content,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    };
+                    notes.unshift(newNote);
+                    saveToStorage();
+                    renderNotesList();
+                    loadNote(newNote.id);
+                    showToast('📋 Duplicado!');
+                }
+                hideContextMenu();
+            }
+        }
+
+        function confirmDeleteFromContext() {
+            if (contextNoteId) {
+                const note = notes.find(n => n.id === contextNoteId);
+                const title = note?.title || 'Sem título';
+                modalText.textContent = `A nota "${title}" será permanentemente removida. Esta ação não pode ser desfeita.`;
+                hideContextMenu();
+                deleteModal.classList.add('show');
+            }
+        }
+
+        function closeDeleteModal() {
+            deleteModal.classList.remove('show');
+            contextNoteId = null;
+        }
+
+        function executeDelete() {
+            if (contextNoteId) {
+                // Se for a nota atual, limpa o editor
+                if (contextNoteId === currentNoteId) {
+                    notes = notes.filter(n => n.id !== contextNoteId);
+                    saveToStorage();
+                    
+                    if (notes.length > 0) {
+                        loadNote(notes[0].id);
+                    } else {
+                        currentNoteId = null;
+                        emptyState.style.display = 'block';
+                        editorWrapper.style.display = 'none';
+                        breadcrumbTitle.textContent = 'Selecione uma nota';
+                    }
+                } else {
+                    notes = notes.filter(n => n.id !== contextNoteId);
+                    saveToStorage();
+                    renderNotesList();
+                }
+                
+                showToast('🗑️ Excluído!');
+            }
+            closeDeleteModal();
+        }
+
+        // Fecha menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!contextMenu.contains(e.target)) {
+                hideContextMenu();
+            }
+        });
+
+        // Fecha modal ao clicar no overlay
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                closeDeleteModal();
+            }
+        });
+
+        // ╔════════════════════════════════════════════════════════════╗
         // ║  RESTO DO CÓDIGO (funções de edição, etc)                 ║
         // ╚════════════════════════════════════════════════════════════╝
 
@@ -804,6 +1191,12 @@
                         e.preventDefault();
                         downloadNote();
                     }
+                }
+                
+                // Fecha modal com ESC
+                if (e.key === 'Escape') {
+                    closeDeleteModal();
+                    hideContextMenu();
                 }
             });
         }
@@ -868,8 +1261,6 @@
             }
         }
 
-        // ... (restante das funções: createNewNote, loadNote, etc - mantidas iguais)
-
         function createNewNote() {
             const id = Date.now().toString();
             const newNote = {
@@ -888,6 +1279,9 @@
         }
 
         function loadNote(id) {
+            // Se foi long press, não carrega a nota
+            if (isLongPress) return;
+            
             const note = notes.find(n => n.id === id);
             if (!note) return;
 
@@ -901,6 +1295,11 @@
             updateBreadcrumb();
             updateStats();
             renderNotesList();
+
+            // Fecha a sidebar no mobile ao selecionar nota
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
 
             setTimeout(() => {
                 if (note.title) contentInput.focus();
@@ -943,28 +1342,39 @@
                 return;
             }
 
-            notesList.innerHTML = filteredNotes.map(note => {
+            notesList.innerHTML = '';
+            filteredNotes.forEach(note => {
                 const isActive = note.id === currentNoteId;
                 const date = new Date(note.updatedAt);
                 const dateStr = formatDate(date);
                 const displayTitle = note.title || 'Sem título';
                 const preview = getPreview(note.content);
 
-                return `
-                    <div class="note-item ${isActive ? 'active' : ''}" onclick="loadNote('${note.id}')">
-                        <div class="note-item-title">
-                            ${escapeHtml(displayTitle)}
-                            ${isActive && isSaving ? '<span class="note-item-dot"></span>' : ''}
-                        </div>
-                        <div class="note-item-preview">${escapeHtml(preview)}</div>
-                        <div class="note-item-meta">
-                            <span>${dateStr}</span>
-                            <span>•</span>
-                            <span>${countWords(note.content)} palavras</span>
-                        </div>
+                const noteElement = document.createElement('div');
+                noteElement.className = `note-item ${isActive ? 'active' : ''}`;
+                noteElement.innerHTML = `
+                    <div class="note-item-title">
+                        ${escapeHtml(displayTitle)}
+                        ${isActive && isSaving ? '<span class="note-item-dot"></span>' : ''}
+                    </div>
+                    <div class="note-item-preview">${escapeHtml(preview)}</div>
+                    <div class="note-item-meta">
+                        <span>${dateStr}</span>
+                        <span>•</span>
+                        <span>${countWords(note.content)} palavras</span>
                     </div>
                 `;
-            }).join('');
+                
+                // Click normal carrega a nota
+                noteElement.onclick = (e) => {
+                    if (!isLongPress) loadNote(note.id);
+                };
+                
+                // Setup long press
+                setupLongPress(noteElement, note.id);
+                
+                notesList.appendChild(noteElement);
+            });
         }
 
         function getPreview(content) {
@@ -1084,22 +1494,11 @@
 
         function deleteNote() {
             if (!currentNoteId) { showToast('Selecione uma nota primeiro', 'error'); return; }
-            if (!confirm('Tem certeza que deseja excluir esta nota?')) return;
-
-            notes = notes.filter(n => n.id !== currentNoteId);
-            saveToStorage();
-
-            if (notes.length > 0) {
-                loadNote(notes[0].id);
-            } else {
-                currentNoteId = null;
-                emptyState.style.display = 'block';
-                editorWrapper.style.display = 'none';
-                breadcrumbTitle.textContent = 'Selecione uma nota';
-            }
-
-            renderNotesList();
-            showToast('🗑️ Excluído!');
+            
+            const note = notes.find(n => n.id === currentNoteId);
+            contextNoteId = currentNoteId;
+            modalText.textContent = `A nota "${note?.title || 'Sem título'}" será permanentemente removida. Esta ação não pode ser desfeita.`;
+            deleteModal.classList.add('show');
         }
 
         function updateNotesCount() {
@@ -1133,6 +1532,11 @@
         window.selectAllContent = selectAllContent;
         window.copyContent = copyContent;
         window.pasteContent = pasteContent;
+        window.openNoteFromContext = openNoteFromContext;
+        window.duplicateNoteFromContext = duplicateNoteFromContext;
+        window.confirmDeleteFromContext = confirmDeleteFromContext;
+        window.closeDeleteModal = closeDeleteModal;
+        window.executeDelete = executeDelete;
     </script>
 </body>
 </html>
